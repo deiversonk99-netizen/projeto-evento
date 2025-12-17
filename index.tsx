@@ -3,14 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// Captura erros globais de renderização
-window.onerror = (message, source, lineno, colno, error) => {
-  console.error("Erro Global:", message, "em", source, ":", lineno);
-};
+console.log("Iniciando carregamento do index.tsx...");
+
+// Captura erros globais de renderização e módulos
+window.addEventListener('error', (event) => {
+  console.error("Erro de Módulo/Execução:", event.message, "em", event.filename);
+});
 
 const rootElement = document.getElementById('root');
+
 if (!rootElement) {
-  console.error("Elemento root não encontrado no DOM!");
+  console.error("Erro Crítico: Elemento #root não encontrado.");
 } else {
   try {
     const root = ReactDOM.createRoot(rootElement);
@@ -19,8 +22,8 @@ if (!rootElement) {
         <App />
       </React.StrictMode>
     );
-    console.log("Aplicação montada com sucesso.");
+    console.log("React tentou renderizar o App.");
   } catch (err) {
-    console.error("Falha ao renderizar App:", err);
+    console.error("Falha fatal na montagem do React:", err);
   }
 }

@@ -16,6 +16,10 @@ export default function App() {
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
 
+  useEffect(() => {
+    console.log("Componente App montado com sucesso.");
+  }, []);
+
   const navigateTo = (view: View, id: string | null = null) => {
     setCurrentView(view);
     setSelectedEventId(id);

@@ -1,17 +1,19 @@
 
-export enum EventStatus {
-  PROPOSAL = 'PROPOSTA',
-  CONFIRMED = 'CONFIRMADO',
-  COMPLETED = 'REALIZADO',
-  CANCELLED = 'CANCELADO',
-  CLOSED = 'FECHADO'
-}
+export const EventStatus = {
+  PROPOSAL: 'PROPOSTA',
+  CONFIRMED: 'CONFIRMADO',
+  COMPLETED: 'REALIZADO',
+  CANCELLED: 'CANCELADO',
+  CLOSED: 'FECHADO'
+} as const;
+
+export type EventStatusType = typeof EventStatus[keyof typeof EventStatus];
 
 export interface Product {
   id: string;
   name: string;
   unitCost: number;
-  factor: number; // Consumption coefficient (e.g. 0.85 per person)
+  factor: number;
 }
 
 export interface ExtraCost {
@@ -40,17 +42,15 @@ export interface EventExtra {
 export interface AppEvent {
   id: string;
   clientName: string;
-  clientDoc: string; // CPF or CNPJ
+  clientDoc: string;
   date: string;
   time: string;
-  duration: number; // hours
+  duration: number;
   pax: number;
   items: EventItem[];
   extras: EventExtra[];
-  desiredMargin: number; // percentage
-  status: EventStatus;
-  
-  // Financial fields
+  desiredMargin: number;
+  status: EventStatusType;
   plannedCost: number;
   plannedPrice: number;
   realCost?: number;
